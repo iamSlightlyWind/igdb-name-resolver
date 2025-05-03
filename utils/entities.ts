@@ -11,6 +11,4 @@ export class Token {
         const obj = JSON.parse(json);
         return new Token(obj.access_token, obj.expires_in);
     }
-
-    static 
 }

@@ -1,6 +1,6 @@
 import process from "process";
 import { kv } from "@vercel/kv";
-import { TOKEN_URL } from "./const";
+import { SEARCH_URL, TOKEN_URL } from "./const";
 import { Token } from "./entities";
 
 async function getToken(): Promise<Token> {
@@ -65,7 +65,34 @@ export async function nameSearch(query: string): Promise<any> {
 
         await storeToken(token);
         console.log("New token stored in KV");
+    } else {
+        console.log("Token found in KV");
     }
 
     console.log("Using token:", token);
+
+    const body = `search "${query}"; fields name,slug;`;
+    const headers = {
+        "Client-ID": process.env.CLIENT_ID || "",
+        Authorization: `Bearer ${token.access_token}`,
+        "Content-Type": "application/json",
+    };
+
+    const response = await fetch(SEARCH_URL, {
+        method: "POST",
+        headers: headers,
+        body: body,
+    });
+
+    if (!response.ok) {
+        console.error("Error fetching data from IGDB:", response.statusText);
+        throw new Error("Failed to fetch data from IGDB");
+    }
+
+    const data = await response.json();
+    if (!data || data.length === 0) {
+        console.error("No data found for the given query");
+        throw new Error("No data found");
+    }
+    console.log("Data fetched successfully: ", data);
 }
