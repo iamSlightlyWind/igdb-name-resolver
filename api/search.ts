@@ -9,6 +9,6 @@ export default async function search(req: Request, res: Response) {
         return res.status(400).json({ message: "Query parameter is required" });
     }
 
-    await nameSearch(query);
-    res.status(200).json({ message: "Search API is working!" });
+    const result = await nameSearch(query);
+    res.status(200).json({ result });
 }

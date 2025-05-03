@@ -46,16 +46,17 @@ async function storeToken(token: Token): Promise<void> {
 }
 
 async function getStoredToken(): Promise<Token> {
-    const tokenValue = await kv.get("token");
-    if (!tokenValue) {
+    const storedToken = await kv.get("token");
+    if (!storedToken) {
         return new Token("", 0);
     }
-    const tokenJson = tokenValue as string;
-    const token = Token.fromJson(tokenJson);
+
+    const token = Token.fromKV(storedToken);
     return token;
 }
 
 export async function nameSearch(query: string): Promise<any> {
+    console.log("Fetching token...");
     let token: Token = await getStoredToken();
     if (token.access_token === "") {
         console.log("No token found in KV, fetching a new one...");
@@ -86,13 +87,13 @@ export async function nameSearch(query: string): Promise<any> {
 
     if (!response.ok) {
         console.error("Error fetching data from IGDB:", response.statusText);
-        throw new Error("Failed to fetch data from IGDB");
+        return "Failed to fetch data from IGDB";
     }
 
     const data = await response.json();
+    console.log("Data received from IGDB:", data);
     if (!data || data.length === 0) {
         console.error("No data found for the given query");
-        throw new Error("No data found");
+        return "No data found for the given query";
     }
-    console.log("Data fetched successfully: ", data);
 }
