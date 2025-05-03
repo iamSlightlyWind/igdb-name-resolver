@@ -1,0 +1,28 @@
+{
+  "name": "igdb-name-resolver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamSlightlyWind/igdb-name-resolver.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/iamSlightlyWind/igdb-name-resolver/issues"
+  },
+  "homepage": "https://github.com/iamSlightlyWind/igdb-name-resolver#readme",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3"
+  }
+}
