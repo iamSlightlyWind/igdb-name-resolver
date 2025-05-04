@@ -20,6 +20,7 @@
   "homepage": "https://github.com/iamSlightlyWind/igdb-name-resolver#readme",
   "dependencies": {
     "@vercel/kv": "^3.0.0",
+    "common-prefix": "^1.1.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0"
   },

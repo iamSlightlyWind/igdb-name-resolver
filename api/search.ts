@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { nameSearch } from "../utils/common";
+import { nameSearch } from "../utils/search";
 
 export default async function search(req: Request, res: Response) {
     const { query } = req.query;
