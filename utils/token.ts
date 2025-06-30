@@ -1,5 +1,4 @@
 import process from "process";
-import { kv } from "@vercel/kv";
 import { TOKEN_URL } from "./const";
 import { Token } from "./entities";
 
@@ -39,18 +38,8 @@ export async function getToken(): Promise<Token> {
 }
 
 export async function storeToken(token: Token): Promise<void> {
-    const tokenJson = JSON.stringify(token);
-    const expires_in = token.expires_in * 1000;
-
-    await kv.set("token", tokenJson, { ex: expires_in });
 }
 
 export async function getStoredToken(): Promise<Token> {
-    const storedToken = await kv.get("token");
-    if (!storedToken) {
-        return new Token("", 0);
-    }
-
-    const token = Token.fromKV(storedToken);
-    return token;
+    return getToken();
 }
